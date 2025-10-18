@@ -1,0 +1,31 @@
+flix.ditchworld.com {
+    encode gzip
+
+    # Basic auth (username: judd / password: ditchflix)
+    basicauth /* {
+        judd $2a$14$19AXQZKyfBY1yauVe9Jhdujoxcq5wlF/4graDlK3FwmOXmbQS754C
+    }
+
+    # Jellyfin
+    reverse_proxy /jellyfin* http://jellyfin:8096
+
+    # Sonarr
+    reverse_proxy /sonarr* http://sonarr:8989
+
+    # Radarr
+    reverse_proxy /radarr* http://radarr:7878
+
+    # Prowlarr
+    reverse_proxy /prowlarr* http://prowlarr:9696
+
+    # Bazarr
+    reverse_proxy /bazarr* http://bazarr:6767
+
+    # qBittorrent
+    reverse_proxy /qbittorrent* http://qbittorrent:8080
+
+    # Default – redirect bare path to Jellyfin
+    handle_path /* {
+        redir /jellyfin 302
+    }
+}
