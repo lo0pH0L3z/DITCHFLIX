@@ -142,7 +142,9 @@ services:
 
   # 🌐 Caddy Reverse Proxy
   caddy:
-    image: caddy:latest
+    build:
+      context: ./caddy
+    image: ditchflix-caddy:latest
     container_name: caddy
     restart: unless-stopped
     ports:
@@ -151,7 +153,8 @@ services:
     environment:
       - TZ=Australia/Sydney
     volumes:
-      - "D:/DITCHFLIX/Caddy:/etc/caddy"
+      - "./caddy-data:/data"
+      - "./caddy-config:/config"
     networks:
       - ditchflix
     depends_on:
