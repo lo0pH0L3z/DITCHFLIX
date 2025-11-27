@@ -723,7 +723,7 @@
             const speed = formatBytes(dl.dlspeed) + '/s';
             const eta = formatEta(dl.eta);
             const progress = dl.progress.toFixed(1) + '%';
-            const isPaused = dl.state.includes('paused') || dl.state.includes('queued');
+            const isPaused = dl.state.includes('paused') || dl.state.includes('queued') || dl.state.includes('stopped');
 
             let controls = '';
             if (!isCompleted) {

@@ -176,36 +176,42 @@ def active_downloads():
         print(f"Error fetching downloads: {e}")
         return jsonify([])
 
-@app.route('/download-api/pause', methods=['POST'])
+@app.route('/download-api/pause', methods=['POST', 'OPTIONS'])
 def pause_torrent():
+    if request.method == 'OPTIONS':
+        return jsonify({"status": "ok"}), 200
     data = request.json
     torrent_hash = data.get('hash')
     if not torrent_hash: return jsonify({"error": "No hash provided"}), 400
 
     session = get_qbit_session()
     try:
-        resp = session.post(f"{QBIT_URL}/api/v2/torrents/pause", data={'hashes': torrent_hash}, timeout=10)
+        resp = session.post(f"{QBIT_URL}/api/v2/torrents/stop", data={'hashes': torrent_hash}, timeout=10)
         resp.raise_for_status()
         return jsonify({"status": "success"})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route('/download-api/resume', methods=['POST'])
+@app.route('/download-api/resume', methods=['POST', 'OPTIONS'])
 def resume_torrent():
+    if request.method == 'OPTIONS':
+        return jsonify({"status": "ok"}), 200
     data = request.json
     torrent_hash = data.get('hash')
     if not torrent_hash: return jsonify({"error": "No hash provided"}), 400
 
     session = get_qbit_session()
     try:
-        resp = session.post(f"{QBIT_URL}/api/v2/torrents/resume", data={'hashes': torrent_hash}, timeout=10)
+        resp = session.post(f"{QBIT_URL}/api/v2/torrents/start", data={'hashes': torrent_hash}, timeout=10)
         resp.raise_for_status()
         return jsonify({"status": "success"})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route('/download-api/delete', methods=['POST'])
+@app.route('/download-api/delete', methods=['POST', 'OPTIONS'])
 def delete_torrent():
+    if request.method == 'OPTIONS':
+        return jsonify({"status": "ok"}), 200
     data = request.json
     torrent_hash = data.get('hash')
     delete_files = data.get('deleteFiles', False)
