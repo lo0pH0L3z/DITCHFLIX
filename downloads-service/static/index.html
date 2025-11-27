@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏴☠️THE DITCH BAY☠️🏴</title>
+    <link rel="icon" type="image/png"
+        href="https://cdn.shopify.com/s/files/1/0523/3193/7974/files/ditchflix_logo_only_transparentREAL328px.png?v=1764206642">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/download/branding.css?v=6">
+    <style>
+        :root {
+            --primary: #872594;
+            --background: #141414;
+            --surface: #1f1f1f;
+            --text: #ffffff;
+            --text-secondary: #b3b3b3;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(45deg, #8d1679, #3452b4);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            background: var(--surface);
+            padding: 0.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: var(--text);
+            font-size: 1.2rem;
+            padding: 1rem;
+            outline: none;
+            font-family: inherit;
+        }
+
+        button.search-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 2rem;
+            border-radius: 6px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        button.search-btn:hover {
+            background-color: #62136d;
+            transform: scale(1.02);
+        }
+
+        .filters-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+            background: rgba(31, 31, 31, 0.5);
+            padding: 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .filter-label {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        select {
+            background: var(--background);
+            color: var(--text);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-family: inherit;
+            cursor: pointer;
+        }
+
+        .resolution-tags {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .res-tag {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+
+        .res-tag:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .res-tag.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .results {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .result-card {
+            background: var(--surface);
+            padding: 1.5rem;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .result-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+            border-color: var(--primary);
+        }
+
+        .info {
+            flex: 1;
+        }
+
+        .title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text);
+        }
+
+        .meta {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .download-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-left: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .download-btn:hover {
+            background: var(--primary);
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 255, 213, 0.4);
+            transform: scale(1.02);
+        }
+
+        .source-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-secondary);
+            padding: 0.8rem 1.2rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1.2rem;
+            line-height: 1;
+        }
+
+        .source-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: white;
+            transform: scale(1.1);
+        }
+
+        .actions {
+            display: flex;
+            gap: 1rem;
+            margin-left: 1rem;
+        }
+
+        .brand-logo {
+            position: absolute;
+            top: 1.5rem;
+            left: 2rem;
+            height: 40px;
+            width: auto;
+            z-index: 100;
+        }
+
+        .loading-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-top: 4rem;
+        }
+
+        .loader-wrapper {
+            position: relative;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .rgb-ring {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: var(--primary);
+            border-right-color: #a8108f;
+            border-bottom-color: var(--primary);
+            animation: spin 1.5s linear infinite;
+            box-shadow: 0 0 15px rgba(229, 9, 20, 0.5);
+        }
+
+        .loader-icon {
+            width: 40px;
+            height: 40px;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.9);
+                opacity: 0.8;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(0.9);
+                opacity: 0.8;
+            }
+        }
+
+        .loading-text {
+            margin-top: 1.5rem;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            animation: blink 1.5s infinite;
+            background: linear-gradient(90deg, var(--primary), #a8108f, var(--primary));
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite;
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            background: #4caf50;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transform: translateY(150%);
+            opacity: 0;
+            pointer-events: none;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.3s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .toast.error {
+            background: #f44336;
+        }
+
+        @media (max-width: 768px) {
+            .result-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+
+            .download-btn {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .brand-logo {
+                position: static;
+                margin-bottom: 1rem;
+                height: 50px;
+            }
+        }
+
+        .active-downloads {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 320px;
+            background: rgba(10, 10, 10, 0.95);
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            padding: 15px;
+            z-index: 1000;
+            display: none;
+            box-shadow: 0 0 20px rgba(0, 255, 213, 0.1);
+            backdrop-filter: blur(10px);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .download-item {
+            margin-bottom: 12px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 8px;
+        }
+
+        .download-item:last-child {
+            margin-bottom: 0;
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .dl-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            margin-bottom: 6px;
+            color: #fff;
+        }
+
+        .dl-progress-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 4px;
+        }
+
+        .dl-progress-fill {
+            height: 100%;
+            background: var(--primary);
+            width: 0%;
+            transition: width 0.3s ease;
+            box-shadow: 0 0 10px var(--primary);
+        }
+
+        .dl-stats {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            align-items: center;
+        }
+
+        .dl-controls {
+            display: flex;
+            gap: 5px;
+            margin-top: 5px;
+        }
+
+        .control-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.7rem;
+            transition: background 0.2s;
+        }
+
+        .control-btn:hover {
+            background: var(--primary);
+        }
+
+        .control-btn.remove:hover {
+            background: #f44336;
+        }
+
+        .section-header {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin: 12px 0 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 4px;
+        }
+
+        .minimize-btn {
+            background: none;
+            border: none;
+            color: var(--text);
+            cursor: pointer;
+            font-size: 1.2rem;
+            padding: 0 5px;
+            line-height: 1;
+        }
+
+        .minimize-btn:hover {
+            color: var(--primary);
+        }
+    </style>
+</head>
+
+<body>
+    <img src="https://cdn.shopify.com/s/files/1/0523/3193/7974/files/DITCHFLIX_devil_logo1.png?v=1763368169"
+        alt="Ditchflix Logo" class="brand-logo">
+    <div class="container">
+        <header>
+            <h1>🏴☠️THE DITCH BAY☠️🏴</h1>
+            <p style="color: var(--text-secondary)">Search and DOWNLOAD content directly to DITCHFLIX <br> or click 🔗
+                for local download 🔗 </p>
+        </header>
+        <div class="search-box">
+            <select id="categorySelect"
+                style="background: var(--background); color: var(--text); border: 1px solid rgba(255, 255, 255, 0.2); padding: 1rem; border-radius: 6px; margin-right: 0.5rem; font-family: inherit; cursor: pointer;">
+                <option value="all">All Content</option>
+                <option value="movies">Movies</option>
+                <option value="tv">TV Shows</option>
+                <option value="software">Software</option>
+                <option value="games">Games</option>
+                <option value="audio">Music</option>
+            </select>
+            <input type="text" id="searchInput" placeholder="Search for movies, shows, games, programs etc..."
+                onkeypress="handleEnter(event)">
+            <button class="search-btn" onclick="search()">Search</button>
+        </div>
+        <p
+            style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 1rem; text-align: center; line-height: 1.6;">
+            💡 <strong>Pro tip:</strong> For specific episodes use "Title s01e01" • For complete seasons try "Title
+            COMPLETE" or "Title COLLECTION"</p>
+        <div class="filters-bar">
+            <div class="filter-group">
+                <span class="filter-label">Sort By:</span>
+                <select id="sortSelect" onchange="applyFilters()">
+                    <option value="smart">Smart (Best Quality/Seeds)</option>
+                    <option value="seeds">Most Seeders</option>
+                    <option value="size_desc">Size (Largest)</option>
+                    <option value="size_asc">Size (Smallest)</option>
+                    <option value="date">Newest</option>
+                </select>
+            </div>
+            <div class="filter-group" style="margin-left: auto;">
+                <span class="filter-label">Resolution:</span>
+                <div class="resolution-tags">
+                    <div class="res-tag" onclick="toggleResFilter('4k')" id="filter-4k">4K</div>
+                    <div class="res-tag" onclick="toggleResFilter('1080p')" id="filter-1080p">1080p</div>
+                    <div class="res-tag" onclick="toggleResFilter('720p')" id="filter-720p">720p</div>
+                </div>
+            </div>
+        </div>
+        <div id="loading" class="loading-container">
+            <div class="loader-wrapper">
+                <div class="rgb-ring"></div>
+                <img src="https://cdn.shopify.com/s/files/1/0523/3193/7974/files/ditchflix_logo_only_transparentREAL328px.png?v=1764206642"
+                    class="loader-icon">
+            </div>
+            <div class="loading-text">SUSSIN' TORRENT MATRIX...</div>
+        </div>
+        <div id="results" class="results"></div>
+    </div>
+    <div id="toast" class="toast">Torrent added successfully! Please be patient while it downloads & updates into
+        DITCHFLIX</div>
+    <div id="active-downloads" class="active-downloads"></div>
+    <script>
+        const API_BASE = '/download-api';
+        let currentResults = [];
+        let activeResFilter = null;
+        let isMinimized = false;
+
+        function handleEnter(e) { if (e.key === 'Enter') search(); }
+        function toggleResFilter(res) {
+            const el = document.getElementById(`filter-${res}`);
+            if (activeResFilter === res) { activeResFilter = null; el.classList.remove('active'); }
+            else { if (activeResFilter) { document.getElementById(`filter-${activeResFilter}`).classList.remove('active'); } activeResFilter = res; el.classList.add('active'); }
+            applyFilters();
+        }
+        async function search() {
+            const query = document.getElementById('searchInput').value;
+            if (!query) return;
+            const loading = document.getElementById('loading');
+            const resultsDiv = document.getElementById('results');
+            loading.style.display = 'flex';
+            resultsDiv.innerHTML = '';
+            currentResults = [];
+            try {
+                const category = document.getElementById('categorySelect').value;
+                const response = await fetch(`${API_BASE}/search?q=${encodeURIComponent(query)}&category=${category}`);
+                const data = await response.json();
+                if (data.error) throw new Error(data.error);
+                currentResults = data;
+                applyFilters();
+            } catch (error) {
+                console.error(error);
+                showToast(error.message || 'Error searching', true);
+                resultsDiv.innerHTML = `<div style="text-align:center; color: var(--text-secondary)">Error: ${error.message}</div>`;
+            } finally { loading.style.display = 'none'; }
+        }
+        function applyFilters() {
+            const resultsDiv = document.getElementById('results');
+            const sortMode = document.getElementById('sortSelect').value;
+            let filtered = [...currentResults];
+            if (activeResFilter) {
+                filtered = filtered.filter(item => {
+                    const title = item.Title.toLowerCase();
+                    if (activeResFilter === '4k') return title.includes('2160p') || title.includes('2160') || title.includes('4k') || title.includes('blu-ray');
+                    if (activeResFilter === '1080p') return title.includes('1080p') || title.includes('1080') || title.includes('uhd');
+                    if (activeResFilter === '720p') return title.includes('720p') || title.includes('720');
+                    return true;
+                });
+            }
+            filtered.sort((a, b) => {
+                const seedsA = parseInt(a.Seeders) || 0;
+                const seedsB = parseInt(b.Seeders) || 0;
+                const sizeA = parseInt(a.Size) || 0;
+                const sizeB = parseInt(b.Size) || 0;
+                switch (sortMode) {
+                    case 'seeds': return seedsB - seedsA;
+                    case 'size_desc': return sizeB - sizeA;
+                    case 'size_asc': return sizeA - sizeB;
+                    case 'date': return new Date(b.PublishDate) - new Date(a.PublishDate);
+                    case 'smart': default: const scoreA = getSmartScore(a); const scoreB = getSmartScore(b); return scoreB - scoreA;
+                }
+            });
+            renderResults(filtered);
+        }
+        function getSmartScore(item) {
+            let score = 0;
+            const title = item.Title.toLowerCase();
+            const seeds = parseInt(item.Seeders) || 0;
+            const sizeGB = (parseInt(item.Size) || 0) / (1024 * 1024 * 1024);
+            if (title.includes('1080p') || title.includes('1080')) score += 10000;
+            else if (title.includes('2160p') || title.includes('2160') || title.includes('4k')) score += 8000;
+            else if (title.includes('720p') || title.includes('720')) score += 5000;
+            score += Math.min(seeds, 500) * 20;
+            if (sizeGB > 30) score -= 3000;
+            if (sizeGB < 0.2) score -= 10000;
+            if (sizeGB > 0.5 && sizeGB < 3) score += 500;
+            return score;
+        }
+        function renderResults(items) {
+            const resultsDiv = document.getElementById('results');
+            resultsDiv.innerHTML = '';
+            if (items.length === 0) { resultsDiv.innerHTML = '<div style="text-align:center; color: var(--text-secondary); margin-top: 2rem;">No results found matching your filters.</div>'; return; }
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'result-card';
+                const size = formatBytes(item.Size);
+                let titleHtml = item.Title;
+                titleHtml = titleHtml.replace(/(1080p|2160p|4k|720p)/gi, '<span style="color: var(--primary); font-weight:bold;">$1</span>');
+                let sourceUrl = item.Details || item.Guid || item.Comments;
+                if (!sourceUrl || !sourceUrl.startsWith('http')) {
+                    const indexer = (item.Indexer || '').toLowerCase();
+                    const searchTerm = encodeURIComponent(item.Title);
+                    if (indexer.includes('1337x')) { sourceUrl = `https://1337x.to/search/${searchTerm}/1/`; }
+                    else if (indexer.includes('pirate') || indexer.includes('tpb')) { sourceUrl = `https://thepiratebay.org/search.php?q=${searchTerm}`; }
+                    else if (indexer.includes('rarbg')) { sourceUrl = `https://rarbg.to/torrents.php?search=${searchTerm}`; }
+                    else if (indexer.includes('torrentz')) { sourceUrl = `https://torrentz2.nz/search?q=${searchTerm}`; }
+                    else if (indexer.includes('nyaa')) { sourceUrl = `https://nyaa.si/?q=${searchTerm}`; }
+                    else if (indexer.includes('eztv')) { sourceUrl = `https://eztv.re/search/${searchTerm}`; }
+                    else { sourceUrl = `https://www.bing.com/search?q=${searchTerm}+torrent`; }
+                }
+                const sourceBtn = `<button class="source-btn" title="Search on ${item.Indexer || 'Bing'} & locate torrent site" onclick="window.open('${sourceUrl}', '_blank')">🔗</button>`;
+                card.innerHTML = `<div class="info"><div class="title">${titleHtml}</div><div class="meta"><span>💾 ${size}</span><span style="color: #4caf50">⬆ ${item.Seeders}</span><span style="color: #f44336">⬇ ${item.Peers}</span><span>🔍 ${item.Indexer}</span><span style="color: var(--text-secondary); font-size: 0.8em;">📅 ${new Date(item.PublishDate).toLocaleDateString()}</span></div></div><div class="actions"><button class="download-btn" onclick="download('${item.Link}')">Download</button>${sourceBtn}</div>`;
+                resultsDiv.appendChild(card);
+            });
+        }
+        async function download(magnet) {
+            try {
+                const response = await fetch(`${API_BASE}/download`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ magnet }) });
+                const data = await response.json();
+                if (data.error) throw new Error(data.error);
+                showToast('Torrent added to download queue!');
+            } catch (error) { showToast(error.message || 'Error adding torrent', true); }
+        }
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = isError ? 'toast error show' : 'toast show';
+            setTimeout(() => { toast.classList.remove('show'); }, 3000);
+        }
+        function formatBytes(bytes, decimals = 2) {
+            if (!+bytes) return '0 Bytes';
+            const k = 1024;
+            const dm = decimals < 0 ? 0 : decimals;
+            const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))} ${sizes[i]}`;
+        }
+
+        setInterval(updateDownloads, 2000);
+
+        async function updateDownloads() {
+            try {
+                const response = await fetch(`${API_BASE}/active-downloads`);
+                if (!response.ok) return;
+                const downloads = await response.json();
+                const container = document.getElementById('active-downloads');
+
+                if (!downloads || downloads.length === 0) {
+                    container.style.display = 'none';
+                    return;
+                }
+
+                container.style.display = 'block';
+
+                // Header with Minimize Button
+                let html = `
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; border-bottom:1px solid var(--primary); padding-bottom:8px;">
+                        <h4 style="margin:0; font-size:0.9rem; color:var(--primary); text-transform:uppercase; letter-spacing:1px;">Downloads (${downloads.length})</h4>
+                        <button onclick="toggleMinimize()" class="minimize-btn" title="${isMinimized ? 'Expand' : 'Minimize'}">${isMinimized ? '+' : '−'}</button>
+                    </div>
+                `;
+
+                if (!isMinimized) {
+                    const active = downloads.filter(d => d.progress < 100);
+                    const completed = downloads.filter(d => d.progress === 100);
+
+                    if (active.length > 0) {
+                        html += `<div class="section-header">Active (${active.length})</div>`;
+                        active.forEach(dl => {
+                            html += renderDownloadItem(dl);
+                        });
+                    }
+
+                    if (completed.length > 0) {
+                        html += `<div class="section-header" style="margin-top:15px;">Completed (${completed.length})</div>`;
+                        completed.forEach(dl => {
+                            html += renderDownloadItem(dl, true);
+                        });
+                    }
+                }
+
+                container.innerHTML = html;
+            } catch (e) { console.error('Error fetching downloads', e); }
+        }
+
+        function renderDownloadItem(dl, isCompleted = false) {
+            const speed = formatBytes(dl.dlspeed) + '/s';
+            const eta = formatEta(dl.eta);
+            const progress = dl.progress.toFixed(1) + '%';
+            const isPaused = dl.state.includes('paused') || dl.state.includes('queued');
+
+            let controls = '';
+            if (!isCompleted) {
+                const playPauseBtn = isPaused
+                    ? `<button class="control-btn" onclick="resumeTorrent('${dl.hash}')">▶ PLAY</button>`
+                    : `<button class="control-btn" onclick="pauseTorrent('${dl.hash}')">⏸ STOP</button>`;
+                controls = `${playPauseBtn}<button class="control-btn remove" onclick="deleteTorrent('${dl.hash}')">✖ REMOVE</button>`;
+            } else {
+                controls = `<button class="control-btn remove" onclick="deleteTorrent('${dl.hash}')">✖ REMOVE</button>`;
+            }
+
+            return `
+                <div class="download-item">
+                    <div class="dl-header">
+                        <span style="white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:200px" title="${dl.name}">${dl.name}</span>
+                        <span style="color:${isCompleted ? '#4caf50' : 'var(--primary)'}">${isCompleted ? '✓' : progress}</span>
+                    </div>
+                    <div class="dl-progress-bar">
+                        <div class="dl-progress-fill" style="width: ${dl.progress}%; background: ${isCompleted ? '#4caf50' : 'var(--primary)'}"></div>
+                    </div>
+                    <div class="dl-stats">
+                        <span>${isCompleted ? 'Downloaded' : `⬇ ${speed} • ⏳ ${eta}`}</span>
+                        <div class="dl-controls">${controls}</div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleMinimize() {
+            isMinimized = !isMinimized;
+            updateDownloads();
+        }
+
+        async function pauseTorrent(hash) {
+            try {
+                const response = await fetch(`${API_BASE}/pause`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ hash })
+                });
+                const result = await response.json();
+                if (!response.ok || result.error) {
+                    throw new Error(result.error || 'Failed to pause torrent');
+                }
+                showToast('⏸ Torrent paused');
+                updateDownloads();
+            } catch (e) {
+                console.error('Error pausing', e);
+                showToast('Failed to pause torrent', true);
+            }
+        }
+
+        async function resumeTorrent(hash) {
+            try {
+                const response = await fetch(`${API_BASE}/resume`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ hash })
+                });
+                const result = await response.json();
+                if (!response.ok || result.error) {
+                    throw new Error(result.error || 'Failed to resume torrent');
+                }
+                showToast('▶ Torrent resumed');
+                updateDownloads();
+            } catch (e) {
+                console.error('Error resuming', e);
+                showToast('Failed to resume torrent', true);
+            }
+        }
+
+        async function deleteTorrent(hash) {
+            if (!confirm('Are you sure you want to remove this download?')) return;
+            try {
+                const response = await fetch(`${API_BASE}/delete`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ hash, deleteFiles: false })
+                });
+                const result = await response.json();
+                if (!response.ok || result.error) {
+                    throw new Error(result.error || 'Failed to delete torrent');
+                }
+                showToast('✓ Torrent removed');
+                updateDownloads();
+            } catch (e) {
+                console.error('Error deleting', e);
+                showToast('Failed to remove torrent', true);
+            }
+        }
+
+        function formatEta(seconds) {
+            if (seconds >= 8640000) return '∞';
+            if (seconds <= 0) return 'Done';
+            const h = Math.floor(seconds / 3600);
+            const m = Math.floor((seconds % 3600) / 60);
+            const s = seconds % 60;
+            if (h > 0) return `${h}h ${m}m`;
+            if (m > 0) return `${m}m ${s}s`;
+            return `${s}s`;
+        }
+    </script>
+</body>
+
+</html>

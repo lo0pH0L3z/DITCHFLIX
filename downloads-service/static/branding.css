@@ -1,0 +1,182 @@
+body::before {
+    content: "D I T C H F L I X ｱ ｲ ｳ ｴ ｵ ｶ ｷ ｸ ｹ ｺ ｻ ｼ ｽ ｾ ｿ ﾀ ﾁ ﾂ ﾃ ﾄ ﾅ ﾆ ﾇ ﾈ ﾉ ﾊ ﾋ ﾌ ﾍ ﾎ ﾏ ﾐ ﾑ ﾒ ﾓ ﾔ ﾕ ﾖ ﾗ ﾘ ﾙ ﾚ ﾛ ﾜ ﾝ 0 1 2 3 4 5 6 7 8 9 Z 日 月 火 水 木 金 土 ｱ ｲ ｳ ｴ ｵ ｶ ｷ ｸ ｹ ｺ ｻ ｼ ｽ ｾ ｿ ﾀ ﾁ ﾂ ﾃ ﾄ ﾅ ﾆ ﾇ ﾈ ﾉ ﾊ ﾋ ﾌ ﾍ ﾎ ﾏ ﾐ ﾑ ﾒ ﾓ ﾔ ﾕ ﾖ ﾗ ﾘ ﾙ ﾚ ﾛ ﾜ ﾝ 0 1 2 3 4 5 6 7 8 9 Z 日 月 火 水 木 金 土 ｱ ｲ ｳ ｴ ｵ ｶ ｷ ｸ ｹ ｺ ｻ ｼ ｽ ｾ ｿ ﾀ ﾁ ﾂ ﾃ ﾄ ﾅ ﾆ ﾇ ﾈ ﾉ ﾊ ﾋ ﾌ ﾍ ﾎ ﾏ ﾐ ﾑ ﾒ ﾓ ﾔ ﾕ ﾖ ﾗ ﾘ ﾙ ﾚ ﾛ ﾜ ﾝ 0 1 2 3 4 5 6 7 8 9 Z";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    font-family: "MS Gothic", "Courier New", monospace;
+    font-size: 18px;
+    line-height: 40px;
+    color: rgba(0, 255, 70, 0.9);
+    letter-spacing: 25px;
+    word-spacing: 20px;
+    word-wrap: break-word;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -3;
+    /* Behind everything */
+    text-shadow: 0 0 12px rgba(0, 255, 100, 1);
+    animation: particleRain1 7s linear infinite;
+}
+
+@keyframes particleRain1 {
+    0% {
+        transform: translateY(-30vh);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: translateY(130vh);
+        opacity: 0;
+    }
+}
+
+body::after {
+    content: "D I T C H WAKE.UP.NEO ◉ FOLLOW.THE.WHITE.RABBIT ◉ KNOCK.KNOCK ◉ THE.MATRIX.HAS.YOU ◉ FREE.YOUR.MIND ◉ THERE.IS.NO.SPOON" " ﾊ ﾐ ﾋ ｰ ｳ ｼ ﾅ ﾓ ﾆ ｻ ﾜ ﾂ ｵ ﾘ ｱ ﾎ ﾃ ﾏ ｹ ﾒ ｴ ｶ ｷ ﾑ ﾕ ﾗ ｾ ﾈ ｽ ﾀ ﾇ ｿ ﾍ Z 0 1 2 3 4 5 6 7 8 9 日 月 火 水 木 金 土 ﾊ ﾐ ﾋ ｰ ｳ ｼ ﾅ ﾓ ﾆ ｻ ﾜ ﾂ ｵ ﾘ ｱ ﾎ ﾃ ﾏ ｹ ﾒ ｴ ｶ ｷ ﾑ ﾕ ﾗ ｾ ﾈ ｽ ﾀ ﾇ ｿ ﾍ Z 0 1 2 3 4 5 6 7 8 9 日 月 火 水 木 金 土 ﾊ ﾐ ﾋ ｰ ｳ ｼ ﾅ ﾓ ﾆ ｻ ﾜ ﾂ ｵ ﾘ ｱ ﾎ ﾃ ﾏ ｹ ﾒ ｴ ｶ ｷ ﾑ ﾕ ﾗ ｾ ﾈ ｽ ﾀ ﾇ ｿ ﾍ";
+    position: fixed;
+    top: 0;
+    left: 15px;
+    width: 100vw;
+    height: 100vh;
+    font-family: "MS Gothic", "Courier New", monospace;
+    font-size: 16px;
+    line-height: 35px;
+    color: rgba(0, 255, 100, 0.7);
+    letter-spacing: 30px;
+    word-spacing: 15px;
+    word-wrap: break-word;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -2;
+    /* Behind everything */
+    text-shadow: 0 0 10px rgba(0, 255, 100, 0.9);
+    animation: particleRain2 10s linear infinite;
+}
+
+@keyframes particleRain2 {
+    0% {
+        transform: translateY(-40vh);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 0.8;
+    }
+
+    90% {
+        opacity: 0.7;
+    }
+
+    100% {
+        transform: translateY(140vh);
+        opacity: 0;
+    }
+}
+
+/* ==============================================
+   FLOATING MESSAGES
+   ============================================== */
+html::before {
+    content: "WAKE.UP.NEO ◉ FOLLOW.THE.WHITE.RABBIT ◉ KNOCK.KNOCK ◉ THE.MATRIX.HAS.YOU ◉ FREE.YOUR.MIND ◉ THERE.IS.NO.SPOON";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    font-family: "Courier New", monospace;
+    font-size: 14px;
+    line-height: 100px;
+    letter-spacing: 70px;
+    word-spacing: 30px;
+    color: rgba(255, 255, 255, 0.15);
+    word-wrap: break-word;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: -1;
+    /* Behind everything */
+    text-shadow: 0 0 15px rgba(0, 255, 100, 0.6);
+    animation: floatUp 50s linear infinite;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+
+    5% {
+        opacity: 0.3;
+    }
+
+    95% {
+        opacity: 0.3;
+    }
+
+    100% {
+        transform: translateY(-100vh);
+        opacity: 0;
+    }
+}
+
+/* ==============================================
+   CONTENT LAYER - Ensure visible above Matrix rain
+   ============================================== */
+.container {
+    position: relative;
+    z-index: 10;
+    /* Above all Matrix effects */
+}
+
+/* Matrix-style inputs */
+input[type="text"] {
+    color: rgba(0, 255, 136, 0.95) !important;
+    text-shadow: 0 0 6px rgba(0, 255, 100, 0.4) !important;
+}
+
+input[type="text"]:focus {
+    border-color: rgba(0, 255, 136, 0.7) !important;
+    box-shadow: 0 0 25px rgba(0, 255, 100, 0.3) !important;
+}
+
+/* Matrix-style select */
+select {
+    color: rgba(0, 255, 136, 0.9) !important;
+    text-shadow: 0 0 4px rgba(0, 255, 100, 0.3) !important;
+}
+
+/* Toast notifications stay on top */
+.toast {
+    z-index: 10000 !important;
+}
+
+/* ==============================================
+   RESPONSIVE
+   ============================================== */
+@media (max-width: 768px) {
+
+    body::before,
+    body::after {
+        font-size: 14px !important;
+        line-height: 30px !important;
+        letter-spacing: 15px !important;
+    }
+
+    html::before {
+        font-size: 10px !important;
+        line-height: 60px !important;
+        letter-spacing: 40px !important;
+    }
+
+    h1 {
+        font-size: 2rem !important;
+    }
+}
