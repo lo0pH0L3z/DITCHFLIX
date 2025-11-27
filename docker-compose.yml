@@ -1,4 +1,55 @@
+version: "3.9"
+
 services:
+  # -------------------------------------------------
+  # Jellyfin (User Configuration)
+  # -------------------------------------------------
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    restart: unless-stopped
+    environment:
+      - TZ=Australia/Sydney
+      - JELLYFIN_BASE_URL=/
+      - JELLYFIN_PublishedServerUrl=https://flix.ditchworld.com
+      - JELLYFIN_FFMPEG_ARGS=-protocol_whitelist file,http,https,tcp,tls,crypto
+    volumes:
+      # Config + Cache + Media Folders (local)
+      - ./jellyfin/config:/config
+      - ./jellyfin/cache:/cache
+      - ./jellyfin/media/Movies:/media/Movies
+      - ./jellyfin/media/Shows:/media/Shows
+      - ./jellyfin/media/Music:/media/Music
+      - ./jellyfin/media/Files:/media/Files
+      - ./jellyfin/media/LIVE_TV:/media/LIVE_TV
+
+      # Internal 500GB HDD (A:)
+      - A:/Jellyfin/media/A-Movies:/media/A-Movies
+      - A:/Jellyfin/media/A-Shows:/media/A-Shows
+      - A:/Jellyfin/media/A-Music:/media/A-Music
+      - A:/Jellyfin/media/A-Files:/media/A-Files
+
+      # External 1TB HDD (B:)
+      - B:/Jellyfin/media/B-Movies:/media/B-Movies
+      - B:/Jellyfin/media/B-Shows:/media/B-Shows
+      - B:/Jellyfin/media/B-Music:/media/B-Music
+      - B:/Jellyfin/media/B-Files:/media/B-Files
+      - B:/Jellyfin/media/B-LiveTV:/media/B-LiveTV
+
+      # External 120GB SSD (E:)
+      - E:/Jellyfin/media/E-Movies:/media/E-Movies
+      - E:/Jellyfin/media/E-Shows:/media/E-Shows
+      - E:/Jellyfin/media/E-Music:/media/E-Music
+      - E:/Jellyfin/media/E-Files:/media/E-Files
+      - E:/Jellyfin/media/E-Transcodes:/media/E-Transcodes
+
+    networks:
+      - internal
+
+  # -------------------------------------------------
+  # Download Stack (Integrated)
+  # -------------------------------------------------
+
   # 🧲 qBittorrent
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
@@ -9,15 +60,18 @@ services:
       - TZ=Australia/Sydney
       - WEBUI_PORT=8080
     volumes:
-      - "D:/DITCHFLIX/qbittorrent-config:/config"
-      - "D:/DITCHFLIX/downloads:/downloads"
+      - "./qbittorrent-config:/config"
+      - "./downloads:/downloads"
+      - "A:/Jellyfin/media:/media/A"
+      - "B:/Jellyfin/media:/media/B"
+      - "E:/Jellyfin/media:/media/E"
     ports:
       - "8080:8080"
       - "6881:6881"
       - "6881:6881/udp"
     restart: unless-stopped
     networks:
-      - ditchflix
+      - internal
 
   # 🧩 Jackett
   jackett:
@@ -28,13 +82,13 @@ services:
       - PGID=1000
       - TZ=Australia/Sydney
     volumes:
-      - "D:/DITCHFLIX/jackett-config:/config"
-      - "D:/DITCHFLIX/downloads:/downloads"
+      - "./jackett-config:/config"
+      - "./downloads:/downloads"
     ports:
       - "9117:9117"
     restart: unless-stopped
     networks:
-      - ditchflix
+      - internal
 
   # 🎬 Radarr
   radarr:
@@ -45,9 +99,9 @@ services:
       - PGID=1000
       - TZ=Australia/Sydney
     volumes:
-      - "D:/DITCHFLIX/radarr-config:/config"
-      - "D:/DITCHFLIX/Movies:/movies"
-      - "D:/DITCHFLIX/downloads:/downloads"
+      - "./radarr-config:/config"
+      - "./Movies:/movies"
+      - "./downloads:/downloads"
     ports:
       - "7878:7878"
     depends_on:
@@ -55,7 +109,7 @@ services:
       - jackett
     restart: unless-stopped
     networks:
-      - ditchflix
+      - internal
 
   # 📺 Sonarr
   sonarr:
@@ -66,9 +120,9 @@ services:
       - PGID=1000
       - TZ=Australia/Sydney
     volumes:
-      - "D:/DITCHFLIX/sonarr-config:/config"
-      - "D:/DITCHFLIX/TV Shows:/tv"
-      - "D:/DITCHFLIX/downloads:/downloads"
+      - "./sonarr-config:/config"
+      - "./TV Shows:/tv"
+      - "./downloads:/downloads"
     ports:
       - "8989:8989"
     depends_on:
@@ -76,7 +130,7 @@ services:
       - jackett
     restart: unless-stopped
     networks:
-      - ditchflix
+      - internal
 
   # 💬 Bazarr
   bazarr:
@@ -87,9 +141,9 @@ services:
       - PGID=1000
       - TZ=Australia/Sydney
     volumes:
-      - "D:/DITCHFLIX/bazarr-config:/config"
-      - "D:/DITCHFLIX/Movies:/movies"
-      - "D:/DITCHFLIX/TV Shows:/tv"
+      - "./bazarr-config:/config"
+      - "./Movies:/movies"
+      - "./TV Shows:/tv"
     ports:
       - "6767:6767"
     depends_on:
@@ -97,7 +151,7 @@ services:
       - sonarr
     restart: unless-stopped
     networks:
-      - ditchflix
+      - internal
 
   # 🔍 Prowlarr
   prowlarr:
@@ -108,37 +162,12 @@ services:
       - PGID=1000
       - TZ=Australia/Sydney
     volumes:
-      - "D:/DITCHFLIX/prowlarr-config:/config"
+      - "./prowlarr-config:/config"
     ports:
       - "9696:9696"
     restart: unless-stopped
     networks:
-      - ditchflix
-
-  # 🎞️ Jellyfin
-  jellyfin:
-    image: lscr.io/linuxserver/jellyfin:latest
-    container_name: jellyfin
-    environment:
-      - PUID=1000
-      - PGID=1000
-      - TZ=Australia/Sydney
-    volumes:
-      - "D:/DITCHFLIX/jellyfin-config:/config"
-      - "D:/DITCHFLIX/Movies:/data/movies"
-      - "D:/DITCHFLIX/TV Shows:/data/tv"
-      - "D:/DITCHFLIX/Music:/data/music"
-      - "D:/DITCHFLIX/Files:/data/files"
-      - "D:/DITCHFLIX/downloads:/data/downloads"
-    ports:
-      - "8096:8096"
-    depends_on:
-      - qbittorrent
-      - radarr
-      - sonarr
-    restart: unless-stopped
-    networks:
-      - ditchflix
+      - internal
 
   # 🌐 Caddy Reverse Proxy
   caddy:
@@ -156,7 +185,7 @@ services:
       - "./caddy-data:/data"
       - "./caddy-config:/config"
     networks:
-      - ditchflix
+      - internal
     depends_on:
       - jellyfin
       - sonarr
@@ -165,6 +194,30 @@ services:
       - bazarr
       - qbittorrent
 
+  # 🚀 Torrent Search Service (Custom)
+  torrent-search:
+    build:
+      context: ./downloads-service
+    container_name: torrent-search
+    ports:
+      - "8001:8001"
+    environment:
+      - JACKETT_URL=http://jackett:9117
+      - QBIT_URL=http://qbittorrent:8080
+      - JACKETT_API_KEY=${JACKETT_API_KEY}
+      - QBIT_USER=${QBIT_USER}
+      - QBIT_PASS=${QBIT_PASS}
+    depends_on:
+      - jackett
+      - qbittorrent
+    volumes:
+      - "A:/Jellyfin/media:/media/A"
+      - "B:/Jellyfin/media:/media/B"
+      - "E:/Jellyfin/media:/media/E"
+    restart: unless-stopped
+    networks:
+      - internal
+
 networks:
-  ditchflix:
+  internal:
     driver: bridge
